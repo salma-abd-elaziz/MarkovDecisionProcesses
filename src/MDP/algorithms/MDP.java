@@ -4,24 +4,27 @@ import java.awt.Point;
 import java.util.Arrays;
 
 public class MDP {
-	static final int TRUE_DIRECTION = 0;
-	static final int RIGHT_DIRECTION = 1;
-	static final int LEFT_DIRECTION = 2;
-	static final int UP = 0;
-	static final int DOWN = 1;
-	static final int RIGHT = 2;
-	static final int LEFT = 3;
+	public static final int TRUE_DIRECTION = 0;
+	public static final int RIGHT_DIRECTION = 1;
+	public static final int LEFT_DIRECTION = 2;
+	public static final int UP = 0;
+	public static final int DOWN = 1;
+	public static final int RIGHT = 2;
+	public static final int LEFT = 3;
 	private int noCol, noRow;
 	private double discountFactor;
 	
 	
 	private double[] transition;
+	private String[] actions;
 	private int[][] reward;
 	public MDP(int noRow, int noCol, double discountFactor, int r,
 					double trueDirection, double leftDirection, double rightDirection) {
 		this.noRow = noRow;
 		this.noCol = noCol;
 		this.discountFactor = discountFactor;
+		actions = new String [4];
+		fillActions(actions);
 		reward = new int [noRow][noCol];
 		fillReward(reward);
 		reward[0][0] = r;
@@ -32,6 +35,17 @@ public class MDP {
 		transition[LEFT_DIRECTION] = leftDirection;
 	}
 
+	public String[] getActions() {
+		return actions;
+	}
+
+	private void fillActions(String[] actions) {
+		actions[0] = "UP";
+		actions[1] = "DOWN";
+		actions[2] = "RIGHT";
+		actions[3] = "LEFT";
+	}
+	
 	public int[][] getReward() {
 		return reward;
 	}
@@ -46,6 +60,14 @@ public class MDP {
 
 	public double getDiscountFactor() {
 		return discountFactor;
+	}
+	
+	public int getNoRow() {
+		return noRow;
+	}
+	
+	public int getNoCol() {
+		return noRow;
 	}
 	
 	private boolean checkRowBorder(int rowIndex){
@@ -97,5 +119,4 @@ public class MDP {
 		}
 		return upStates;
 	}	
-	
 }
